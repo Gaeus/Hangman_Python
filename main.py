@@ -79,8 +79,6 @@ while not game_over:
     guess = ""
     while len(guess) != 1:
         guess = input("Guess a letter: ").lower()
-        print(f"One letter at a time, '{guess}' was not valid")
-
 
     display = ""
 
