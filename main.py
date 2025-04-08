@@ -1,33 +1,106 @@
 import random
-word_list = ["aardvark", "baboon", "camel"]
+stages = [r'''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', r'''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', r'''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+word_list = ["aardvark", "baboon", "camel", "cookie", "praline", "cindy", "maxime"]
 
-chosen_word = random.choice(word_list)
-print("debug:",chosen_word)
+# TODO-1: - Create a variable called 'lives' to keep track of the number of lives left.
+#  Set 'lives' to equal 6.
 
-placeholder = ["_" for symbol in chosen_word ] # EXPRESSION for ITEM in ITERABLE
-display = ("".join(placeholder))
-print(display)
+chosen_word = random.choice(word_list).lower()
+# print(chosen_word) #debug
 
+placeholder = ""
+word_length = len(chosen_word)
+for position in range(word_length):
+    placeholder += "_"
+print(placeholder)
 
 game_over = False
-correct_guesses = [] # outside the loop so it isn't wiped by each loop
+correct_letters = []
+lives = 6
+
+print(stages[lives])
 
 while not game_over:
     guess = input("Guess a letter: ").lower()
-    display = ""
 
+    display = ""
 
     for letter in chosen_word:
         if letter == guess:
             display += letter
-            correct_guesses.append(letter)
-        elif letter in correct_guesses:
+            correct_letters.append(guess)
+        elif letter in correct_letters:
             display += letter
         else:
             display += "_"
 
+    if guess not in chosen_word:
+        lives = lives - 1
+
     print(display)
+    # print(lives) #debug
+
+    print(stages[lives])
 
     if "_" not in display:
         game_over = True
-        print("you won!")
+        print("You win.")
+
+    if lives == 0:
+        game_over = True
+        print("You lost!")
