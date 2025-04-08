@@ -76,7 +76,11 @@ lives = 6
 print(stages[lives])
 
 while not game_over:
-    guess = input("Guess a letter: ").lower()
+    guess = ""
+    while len(guess) != 1:
+        guess = input("Guess a letter: ").lower()
+        print(f"One letter at a time, '{guess}' was not valid")
+
 
     display = ""
 
@@ -103,4 +107,4 @@ while not game_over:
 
     if lives == 0:
         game_over = True
-        print("You lost!")
+        print(f"You lost! The word was '{chosen_word}'")
