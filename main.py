@@ -5,22 +5,29 @@ chosen_word = random.choice(word_list)
 print("debug:",chosen_word)
 
 placeholder = ["_" for symbol in chosen_word ] # EXPRESSION for ITEM in ITERABLE
-print ("".join(placeholder))
+display = ("".join(placeholder))
+print(display)
 
-guess = input("Guess a letter: ").lower()
+
+game_over = False
+correct_guesses = [] # outside the loop so it isn't wiped by each loop
+
+while not game_over:
+    guess = input("Guess a letter: ").lower()
+    display = ""
 
 
-display = []
-for letter in chosen_word:
-    if letter == guess: # == means trully identical
-        display.append(letter) #j'injecte la lettre correcte dans l'array display
-    else:
-        display.append("_")
+    for letter in chosen_word:
+        if letter == guess:
+            display += letter
+            correct_guesses.append(letter)
+        elif letter in correct_guesses:
+            display += letter
+        else:
+            display += "_"
 
-print("".join(display))
+    print(display)
 
-for letter in chosen_word:
-    if letter == guess:
-        print("Right")
-    else:
-        print("Wrong")
+    if "_" not in display:
+        game_over = True
+        print("you won!")
